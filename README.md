@@ -4,9 +4,9 @@
 * **Batas Akhir:** 31 Maret 2024
   
 ## **Informasi:**
-* **Nama:** Ahmad Zulkarnaen
-* **NPM:** 2310631170064
-* **Kelas:** 2D Informatika
+* 👦🏽 **Nama:** Ahmad Zulkarnaen
+* #️⃣ **NPM:** 2310631170064
+* 🏫 **Kelas:** 2D Informatika
 
 
 **Deskripsi:**
@@ -31,3 +31,5 @@ b. Menampilkan daftar seluruh buku yang ada dalam perpustakaan.
 c. Menghapus buku berdasarkan judul.
 d. Mencari buku berdasarkan penulis.
 e. Menghitung total jumlah halaman dari seluruh buku dalam perpustakaan.
+
+### Sekian dan Terima kasih
