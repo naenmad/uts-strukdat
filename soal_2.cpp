@@ -24,6 +24,7 @@ void addBook() {
     cout << "Masukkan penulis buku: ";
     getline(cin, newBook.author);
 
+    // Meminta tahun terbit dan memvalidasi input
     while (true) {
         cout << "Masukkan tahun terbit: ";
         cin >> newBook.year;
@@ -37,6 +38,7 @@ void addBook() {
         }
     }
 
+    // Meminta jumlah halaman dan memvalidasi input
     while (true) {
         cout << "Masukkan jumlah halaman: ";
         cin >> newBook.pages;
@@ -90,6 +92,7 @@ void deleteBook() {
             if (it != library.end()) {
                 library.erase(it, library.end());
                 cout << "Buku \"" << title << "\" telah dihapus!" << endl;
+                n--;
                 break;
             } else {
                 cout << "Buku \"" << title << "\" tidak ditemukan! Silahkan coba lagi.\n";
@@ -263,3 +266,4 @@ int main() {
     
     return 0;
 }
+
