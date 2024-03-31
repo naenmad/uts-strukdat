@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <limits>
 
 using namespace std;
 int n = 0;
@@ -22,12 +23,35 @@ void addBook() {
     getline(cin, newBook.title);
     cout << "Masukkan penulis buku: ";
     getline(cin, newBook.author);
-    cout << "Masukkan tahun terbit: ";
-    cin >> newBook.year;
-    cin.ignore();  
-    cout << "Masukkan jumlah halaman: ";
-    cin >> newBook.pages;
-    cin.ignore();  
+
+    // Meminta tahun terbit dan memvalidasi input
+    while (true) {
+        cout << "Masukkan tahun terbit: ";
+        cin >> newBook.year;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Input tidak valid. Silakan masukkan angka.\n";
+        } else {
+            cin.ignore();
+            break;
+        }
+    }
+
+    // Meminta jumlah halaman dan memvalidasi input
+    while (true) {
+        cout << "Masukkan jumlah halaman: ";
+        cin >> newBook.pages;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Input tidak valid. Silakan masukkan angka.\n";
+        } else {
+            cin.ignore();
+            break;
+        }
+    }
+
     library.push_back(newBook);
     cout << endl;
     n++;
@@ -38,7 +62,7 @@ void displayBooks() {
     if(n == 0){
         cout << "\n\nDaftar buku masih kosong. Silahkan tambah buku!\n";
     } else { 
-        cout << "DAFTAR BUKU\n";
+        cout << "\nDAFTAR BUKU\n";
         for (const auto &book : library) {
             cout << count << ". ";
             cout << "Judul: " << book.title << ", Penulis: " << book.author << ", Tahun: " << book.year << ", Halaman: " << book.pages << endl;
@@ -54,17 +78,24 @@ void deleteBook() {
         cout << "\nDaftar buku masih kosong. Silahkan tambah buku!\n";
     } else {
         displayBooks();
-        cout << "Masukkan judul buku yang ingin dihapus: ";
-        cin.ignore();  // ignore the newline in the buffer
-        getline(cin, title);
-        auto it = remove_if(library.begin(), library.end(), [&title](const Book &book) {
-            return book.title == title;
-        });
-        if (it != library.end()) {
-            library.erase(it, library.end());
-            cout << "Buku \"" << title << "\" telah dihapus!" << endl;
-        } else {
-            cout << "Buku \"" << title << "\" tidak ditemukan!" << endl;
+        cin.ignore(); 
+        while (true) {
+            cout << "Masukkan judul buku yang ingin dihapus (atau ketik 'batal' untuk membatalkan): ";
+            getline(cin, title);
+            if (title == "batal") {
+                cout << "Penghapusan buku dibatalkan.\n";
+                break;
+            }
+            auto it = remove_if(library.begin(), library.end(), [&title](const Book &book) {
+                return book.title == title;
+            });
+            if (it != library.end()) {
+                library.erase(it, library.end());
+                cout << "Buku \"" << title << "\" telah dihapus!" << endl;
+                break;
+            } else {
+                cout << "Buku \"" << title << "\" tidak ditemukan! Silahkan coba lagi.\n";
+            }
         }
     }
     cout << endl;
@@ -124,7 +155,7 @@ void countPages() {
         for (const auto &book : library) {
             total += book.pages;
         }
-        cout << "Total halaman: " << total << endl << endl;
+        cout << "Terdapat " << total << " halaman dari total " << n << " buku." << endl;
     }  
     cout << endl;
 
@@ -164,6 +195,8 @@ void updateBook() {
 void sortBooks() {
     if (n == 0){
         cout << "\nDaftar buku masih kosong. Silahkan tambah buku!\n";
+    } else if (n == 1) {
+        cout << "\nDaftar buku hanya satu buah. Tidak perlu diurutkan!\n";
     } else {
         cout << endl;
         int choice;
@@ -208,6 +241,11 @@ int main() {
         cout << "1. Tambah Buku\n2. Tampilkan Buku\n3. Hapus Buku\n4. Cari Buku\n5. Hitung Halaman\n6. Perbarui Buku\n7. Urutkan Buku\n0. Keluar\n\nPilihan: ";
         cin >> choice;
         
+        if (cin.fail()){
+            cout << "\nTerjadi kesalahan input (Memasukan string atau char). Program dihentikan otomatis.";
+            return 1;
+        }
+
         if(choice >= 1 && choice <= 7){
             switch (choice) {
                 case 1: addBook(); break;
@@ -222,6 +260,8 @@ int main() {
             cout << "Pilihan tidak valid!\n\n";
         }
     } while (choice != 0);
-
+    
+    cout << "\nProgram dihentikan. Terimakasih telah menggunakan program ini. <3";
+    
     return 0;
 }
