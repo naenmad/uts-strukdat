@@ -12,21 +12,15 @@ int main() {
     
     int n;
     cout << "Masukkan jumlah elemen pada array: ";
-    if (!(cin >> n) || n <= 0) {
-        cout << "Input tidak valid. Tolong masukan angka positif!." << endl;
-        return 1;
-    }
+    cin >> n;
+    int arr[n];
 
-    int* arr = new int[n];
     cout << "\nMasukkan nilai-nilai elemen" << endl;
     for(int i = 0; i < n; i++) {
         cout << "Masukan elemen ke-" << i+1 << ": ";
-        if (!(cin >> arr[i])) {
-            cout << "Input tidak valid. Tolong masukan angka!." << endl;
-            delete[] arr;
-            return 1;
-        }
+        cin >> arr[i];
     }
+    cout << endl;
 
     int min = arr[0];
     int max = arr[0];
@@ -46,6 +40,5 @@ int main() {
     cout << "Nilai maksimum: " << max << endl;
     cout << "Rata-rata: " << avg << endl;
 
-    delete[] arr;
     return 0;
 }
