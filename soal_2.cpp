@@ -24,7 +24,6 @@ void addBook() {
     cout << "Masukkan penulis buku: ";
     getline(cin, newBook.author);
 
-    // Meminta tahun terbit dan memvalidasi input
     while (true) {
         cout << "Masukkan tahun terbit: ";
         cin >> newBook.year;
@@ -38,7 +37,6 @@ void addBook() {
         }
     }
 
-    // Meminta jumlah halaman dan memvalidasi input
     while (true) {
         cout << "Masukkan jumlah halaman: ";
         cin >> newBook.pages;
